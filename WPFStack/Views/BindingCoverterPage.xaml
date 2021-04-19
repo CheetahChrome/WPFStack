@@ -1,0 +1,72 @@
+﻿<Page x:Class="WPFStack.Views.BindingCoverterPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPFStack.Views"
+      xmlns:model="clr-namespace:WPFStack.Model"
+      xmlns:converter="clr-namespace:WPFStack.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="100" d:DesignWidth="300"
+      Title="BindingCoverterPage">
+
+<Page.Resources>
+    <model:People x:Key="people">
+        <model:Person First="Joe"
+                        Last="Smith"
+                        Phone="303-555-5555" />
+    </model:People>
+    <model:Employees x:Key="employeePeople">
+        <model:Employee First="Omega"
+                        Last="Man"
+                        Phone="303-867-5309"
+                        EmployeeId="90125" />
+    </model:Employees>
+    <converter:EmployeeVisiblity x:Key="isEmployeeVisibility"/>
+    <Style x:Key="LabelStyle" TargetType="Label" >
+        <Setter Property="Margin" Value="-20,0,0,0"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+</Page.Resources>
+
+<StackPanel Margin="10"
+            HorizontalAlignment="Left">
+    <ComboBox Name="mySelectionCombo"
+                SelectedItem="{Binding SelectedObject, 
+                        Mode=TwoWay, 
+                        UpdateSourceTrigger=PropertyChanged }"
+                DisplayMemberPath="Last"
+                SelectedIndex="0"
+                Width="200">
+        <ComboBox.ItemsSource>
+            <CompositeCollection>
+                <CollectionContainer Collection="{Binding Source={StaticResource people}}" />
+                <CollectionContainer Collection="{Binding Source={StaticResource employeePeople}}" />
+            </CompositeCollection>
+        </ComboBox.ItemsSource>
+    </ComboBox>
+
+    <StackPanel Margin="10">
+
+        <Label Content="Employee Stats:"
+                Style="{StaticResource LabelStyle}"
+                Visibility="{Binding SelectedItem, 
+                            ElementName=mySelectionCombo,
+                            Converter={StaticResource isEmployeeVisibility}}" />
+
+        <Label Content="Person Stats:"
+                Style="{StaticResource LabelStyle}"
+                Visibility="{Binding SelectedItem, 
+                            ElementName=mySelectionCombo,
+                            ConverterParameter=Reverse,
+                            Converter={StaticResource isEmployeeVisibility}}" />
+
+        <TextBlock Text="{Binding SelectedItem.First, ElementName=mySelectionCombo}" />
+        <TextBlock Text="{Binding SelectedItem.Last, ElementName=mySelectionCombo}" />
+        <TextBlock Text="{Binding SelectedItem.EmployeeId, ElementName=mySelectionCombo}"
+                    Visibility="{Binding SelectedItem, 
+                            ElementName=mySelectionCombo,
+                            Converter={StaticResource isEmployeeVisibility}}" />
+    </StackPanel>
+</StackPanel>
+</Page>

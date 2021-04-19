@@ -1,0 +1,39 @@
+﻿<Window x:Class="WPFStack.Views.MarkupTesting"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFStack.Views"
+        xmlns:markup="clr-namespace:WPFStack.Markups"
+        xmlns:wpfStack="clr-namespace:WPFStack"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance {x:Type wpfStack:MainVm}}"
+        DataContext="{StaticResource MainViewModel}"
+        Title="MarkupTesting"
+        Height="300"
+        Width="300">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="31*" />
+            <ColumnDefinition Width="261*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="{Binding SliderSeleciton, FallbackValue=Failure}"
+                   Grid.Column="1"
+                   Grid.Row="1"
+                    />
+
+
+        <TextBlock Text="{markup:MarkupExtensionWithBindableParam Param1=SliderSeleciton}"
+                   Grid.Column="1"
+                   Grid.Row="2"
+                    />
+
+    </Grid>
+</Window>

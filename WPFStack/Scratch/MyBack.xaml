@@ -1,0 +1,55 @@
+﻿<Window x:Class="WPFStack.Scratch.MyBack"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFStack.Scratch"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="MyBack" Height="280" Width="200">
+
+<Grid>
+    <Grid.Resources>
+        <system:Double x:Key="SlideOffSet">100</system:Double>
+
+<Storyboard x:Key="SlideRight">
+    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                     From="0" To="{StaticResource SlideOffSet}"
+                     Duration="0:0:0.3" />
+</Storyboard>
+
+        <Storyboard x:Key="SlideLeft">
+            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                             From="{StaticResource SlideOffSet}" To="0" 
+                             Duration="0:0:0.3" />
+        </Storyboard>
+
+        <Style TargetType="{x:Type Rectangle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsChecked, ElementName=SlideState}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard Storyboard="{StaticResource SlideLeft}" />
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard Storyboard="{StaticResource SlideRight}" />
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+    </Grid.Resources>
+
+    <ToggleButton Height="30" Width="60" Margin="0,20,0,20" x:Name="SlideState">
+        <TextBlock Text="{Binding IsChecked, ElementName=SlideState}"
+                   FontSize="18" 
+                   VerticalAlignment="Center" HorizontalAlignment="Center"  >
+        </TextBlock>
+    </ToggleButton>
+
+    <Rectangle Fill="Blue" Width="{StaticResource SlideOffSet}" Height="100" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,0,0" >
+        <Rectangle.RenderTransform>
+            <TranslateTransform X="{StaticResource SlideOffSet}" Y="0" />
+        </Rectangle.RenderTransform>
+    </Rectangle>
+</Grid>
+</Window>

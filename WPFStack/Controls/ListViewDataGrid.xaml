@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="WPFStack.Controls.ListViewDataGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFStack.Controls" 
+             xmlns:model="clr-namespace:WPFStack.Model"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+<UserControl.Resources>
+    <model:People x:Key="People">
+        <model:Person First="Joe" Last="Smith" Phone="303-555-5555"/>
+        <model:Person First="Jenny" Last="Johnson" Phone="720-867-5309" />
+        <model:Person First="Frank" Last="Wright" Phone="202-555-5555" />
+    </model:People>
+</UserControl.Resources>
+
+<ListView ItemsSource="{StaticResource People}" HorizontalContentAlignment="Stretch"  
+          HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    
+    <!--Comment this out to see working display-->
+<ListView.ItemContainerStyle>
+    <Style TargetType="ListViewItem">
+        <Setter Property="Template">
+            <Setter.Value>
+<ControlTemplate TargetType="ListViewItem">
+    <Grid Background="White" Margin="20">
+        <Grid.Effect>
+            <DropShadowEffect />
+        </Grid.Effect>
+        <GridViewRowPresenter Content="{TemplateBinding Content}" 
+                              
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+    </Grid>
+</ControlTemplate>
+        </Setter.Value>
+        </Setter>
+    </Style>
+</ListView.ItemContainerStyle>
+<!--End Failure Point-->
+<ListView.View>
+    <GridView >
+        <GridViewColumn Header="First" DisplayMemberBinding="{Binding Path=First}"  />
+        <GridViewColumn Header="Last"  DisplayMemberBinding="{Binding Path=Last}" />
+        <GridViewColumn Header="Phone" DisplayMemberBinding="{Binding Path=Phone}" />
+    </GridView>
+</ListView.View>
+
+
+    <!--<ListBox.ItemTemplate>
+        <DataTemplate>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding First}"/>
+                <TextBlock Text="{Binding Last}"/>
+                <TextBlock Text="{Binding Phone}"/>
+        </StackPanel>
+        </DataTemplate>
+    </ListBox.ItemTemplate>-->
+
+</ListView>
+</UserControl>

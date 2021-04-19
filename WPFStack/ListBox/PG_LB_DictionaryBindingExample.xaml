@@ -1,0 +1,44 @@
+﻿<Page x:Class="WPFStack.ListBox.PG_LB_DictionaryBindingExample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPFStack.ListBox"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="DictionaryBindingExample">
+
+    <StackPanel Name="myPanel" Orientation="Vertical">
+      
+        <ListBox  Name="lbTheDictionary"
+                  ItemsSource="{Binding myDictionary}"
+                  SelectedValuePath="Key"
+                  DisplayMemberPath="Value"
+                  Margin="10" />
+
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Key:"
+                   Margin="0,0,6,0"
+                   VerticalContentAlignment="Center"
+                   HorizontalAlignment="Center" />
+            <TextBlock Text="{Binding SelectedItem.Key, ElementName=lbTheDictionary}"
+                       VerticalAlignment="Center"
+                       TextAlignment="Left"
+                       Width="200" />
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Value:"
+                   Margin="0,0,6,0"
+                   HorizontalAlignment="Center" />
+            <TextBlock Text="{Binding SelectedItem.Value, ElementName=lbTheDictionary}"
+                       Width="200"
+                       VerticalAlignment="Center"
+                       TextAlignment="Left" />
+        </StackPanel>
+        <Button Content="What is Selected"
+                Width="200"
+                Click="ShowIt" />
+    </StackPanel>
+
+</Page>

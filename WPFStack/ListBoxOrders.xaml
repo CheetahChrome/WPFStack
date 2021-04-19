@@ -1,0 +1,50 @@
+﻿<Window x:Class="WPFStack.ListBoxOrders"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPFStack"
+      xmlns:model="clr-namespace:WPFStack.Model"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+        Height="300"
+        Width="200"
+      Title="ListBoxOrders">
+
+<Window.Resources>
+    <model:Orders x:Key="Orders">
+        <model:Order CustomerName="Alpha"
+                        OrderId="997"
+                        InProgress="True" />
+        <model:Order CustomerName="Beta"
+                        OrderId="998"
+                        InProgress="False" />
+        <model:Order CustomerName="Omega"
+                        OrderId="999"
+                        InProgress="True" />
+        <model:Order CustomerName="Zeta"
+                        OrderId="1000"
+                        InProgress="False" />
+    </model:Orders>
+</Window.Resources>
+    <StackPanel Orientation="Vertical">
+<ListBox ItemsSource="{StaticResource Orders}" x:Name="lbOrders">
+    <ListBox.Resources>
+        <DataTemplate DataType="{x:Type model:Order}">
+            <TextBlock Text="{Binding Path=CustomerName}" />
+        </DataTemplate>
+        <Style TargetType="{x:Type ListBoxItem}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=InProgress}"
+            Value="True">
+                    <Setter Property="Foreground"
+        Value="Red" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </ListBox.Resources>
+</ListBox>
+        <Label Content="{Binding SelectedItem.OrderId, ElementName=lbOrders}"/>
+    </StackPanel>
+
+</Window>

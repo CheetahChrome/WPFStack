@@ -1,0 +1,18 @@
+﻿<Window x:Class="WPFStack.Panels.WrapPanel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFStack.Panels"
+        mc:Ignorable="d"
+        Title="WrapPanel" Height="450" Width="1000">
+    <WrapPanel ItemWidth="140">
+        <TextBlock Text="Monday"/>
+        <TextBlock Text="Tuesday"/>
+        <TextBlock Text="Wednesday"/>
+        <TextBlock Text="Thursday"/>
+        <TextBlock Text="Friday"/>
+        <TextBlock Text="Saturday"/>
+        <TextBlock Text="Sunday"/>
+    </WrapPanel>
+</Window>

@@ -1,0 +1,64 @@
+﻿<Page x:Class="WPFStack.ListBox.ContextBindingExample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPFStack.ListBox"
+      xmlns:controls="clr-namespace:WPFStack.Controls"
+      DataContext="{StaticResource MainViewModel}"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Width="400"
+      x:Name="MainPage"
+      Title="ContextBindingExample">
+    <Page.Resources>
+        <!-- Resource declaration gives you easy access using StaticResource -->
+        <!--<FrameworkElement Name="FEPipe" x:Key="KeyPipe" Visibility="Hidden" />-->
+   
+    </Page.Resources>
+    
+    <StackPanel>
+        <!--<StaticResource ResourceKey="KeyPipe"
+                        x:Name="Pipe" />-->
+        
+        <ListBox  ItemsSource="{Binding Orders}"
+                  Tag="{Binding  ElementName=MainPage}"
+                  Name="LB">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Tag"
+                            Value="{Binding Path=DataContext, RelativeSource={RelativeSource AncestorType=ListBox}}" />
+                    <Setter Property="ToolTip" Value="{Binding OrderId}" />
+                    <Setter Property="ContextMenu">
+                        <Setter.Value>
+                            <ContextMenu>
+                                <MenuItem Header="Copy"
+                                          Command="{Binding Parent.PlacementTarget.Tag.DeleteItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                <MenuItem Header="Delete"
+                                          Command="{Binding DeleteItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                <MenuItem Header="{Binding CustomerName}" /> <!--This is on the actual order object!-->
+                                <MenuItem Header="{Binding PlacementTarget.Tag.Name, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+
+                            </ContextMenu>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding CustomerName, FallbackValue=Unknown}"
+                               FontSize="14"
+                               Name="tbBlock"
+                               VerticalAlignment="Stretch"
+                               HorizontalAlignment="Stretch"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <TextBlock Text="Hello Dudes" />
+        <controls:HighlightTextBox Text="Hello Dudes"
+                                   Highlights="{Binding Highlights}" />
+    </StackPanel>
+
+</Page>

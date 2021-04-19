@@ -1,0 +1,118 @@
+﻿<Window x:Class="WPFStack.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:WPFStack"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        d:DataContext="{d:DesignInstance {x:Type local:MainVm}}"
+        Title="MainWindow"
+        Height="350"
+        Width="525">
+    <Window.Resources>
+        <Path x:Key="vRedo"
+              Data="F1M14.4401,25.5039C15.5755,22.9375 17.1667,20.5703 19.2162,18.5239 23.5781,14.1587 29.3828,11.7539 35.5573,11.7539 41.7344,11.7539 47.5365,14.1587 51.8984,18.5239 56.263,22.8879 58.6667,28.6899 58.6667,34.8645 58.6667,41.0391 56.263,46.8411 51.8984,51.2056 51.2031,51.8997 50.2917,52.2461 49.3828,52.2461 48.474,52.2461 47.5599,51.8997 46.8646,51.2056 45.4818,49.8164 45.4818,47.5664 46.8698,46.177 49.8932,43.1563 51.5573,39.1392 51.5573,34.8645 51.5573,30.5911 49.8932,26.5728 46.8646,23.552 43.849,20.5273 39.8307,18.8645 35.5573,18.8645 31.2813,18.8645 27.2656,20.5273 24.2448,23.552 22.0052,25.7915 20.5182,28.5845 19.8932,31.6184L27.5573,40.1992 5.33334,40.1992 7.10938,17.2969 14.4401,25.5039z" />
+        <Style x:Key="ModifiablePathStyle"
+               TargetType="{x:Type Path}">
+            <Setter Property="Stretch"
+                    Value="Uniform" />
+            <Setter Property="Data"
+                    Value="{Binding Data, Source={StaticResource vRedo}}" />
+        </Style>
+        <DrawingImage x:Key="diRedo">
+            <DrawingImage.Drawing>
+                <DrawingGroup>
+                    <GeometryDrawing Brush="#FF22BAFD"
+                                     Geometry="F1M14.4401,25.5039C15.5755,22.9375 17.1667,20.5703 19.2162,18.5239 23.5781,14.1587 29.3828,11.7539 35.5573,11.7539 41.7344,11.7539 47.5365,14.1587 51.8984,18.5239 56.263,22.8879 58.6667,28.6899 58.6667,34.8645 58.6667,41.0391 56.263,46.8411 51.8984,51.2056 51.2031,51.8997 50.2917,52.2461 49.3828,52.2461 48.474,52.2461 47.5599,51.8997 46.8646,51.2056 45.4818,49.8164 45.4818,47.5664 46.8698,46.177 49.8932,43.1563 51.5573,39.1392 51.5573,34.8645 51.5573,30.5911 49.8932,26.5728 46.8646,23.552 43.849,20.5273 39.8307,18.8645 35.5573,18.8645 31.2813,18.8645 27.2656,20.5273 24.2448,23.552 22.0052,25.7915 20.5182,28.5845 19.8932,31.6184L27.5573,40.1992 5.33334,40.1992 7.10938,17.2969 14.4401,25.5039z" />
+                </DrawingGroup>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" /> 
+            <RowDefinition Height="8" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="8" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="8" />            
+        </Grid.RowDefinitions>
+        <Image Source="{DynamicResource diRedo}"
+               Margin="0,0,0.6,0" />
+        <Path Style="{StaticResource ModifiablePathStyle}"
+              Grid.Column="1"
+              Fill="Red" />
+        <Path Style="{StaticResource ModifiablePathStyle}"
+              Grid.Column="2"
+              Fill="Green"
+              />
+        <UniformGrid Rows="1" Grid.Row="2" Grid.ColumnSpan="3" Margin="50,0,50,8">
+            <UniformGrid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                </Style>
+            </UniformGrid.Resources>
+
+            <Button>All Vessels</Button>
+            <TextBlock>Vessel</TextBlock>
+            <TextBlock>Passage</TextBlock>
+            <TextBlock>Group</TextBlock>
+            <TextBlock>All Groups</TextBlock>
+        </UniformGrid>
+        <Slider Grid.Row="3"
+                Margin="80,0,80,0"
+                Grid.ColumnSpan="3"
+                HorizontalAlignment="Stretch"
+                Minimum="1"
+                Maximum="5"
+                IsSnapToTickEnabled="True"
+                Value="{Binding SliderSeleciton, Mode=TwoWay}"
+                SmallChange="1"
+                LargeChange="1"
+                ValueChanged="Slider_ValueChanged"
+                />
+        <TreeView Name="GroupView"
+                  Grid.Row="5"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="3"
+                  ItemsSource="{Binding Viewables}">
+            <TreeView.Resources>
+               
+                <HierarchicalDataTemplate DataType="{x:Type local:Group}"
+                                          ItemsSource="{Binding Children}">
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                        <TextBlock Text="(Group)"
+                                   Margin="0,0,6,0" />
+                        <TextBlock Text="{Binding Path=Name}" />
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type local:Ship}"
+                                          ItemsSource="{Binding Children}">
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                        <TextBlock Text="(Ship)"
+                                   Margin="0,0,6,0" />
+                        <TextBlock Text="{Binding Path=Name}" />
+                    </StackPanel>
+                </HierarchicalDataTemplate>                
+                <DataTemplate DataType="{x:Type local:Entity}">
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                        <TextBlock Text="{Binding Path=Name}"
+                                   Margin="6,0,12,0" />
+                        <TextBlock Text="{Binding Parent.Name, StringFormat= ({0})}"
+                                   />
+                    </StackPanel>
+                    
+                </DataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+    </Grid>
+</Window>

@@ -1,0 +1,29 @@
+﻿<Window x:Class="WPFStack.Grid.StarSizingGrid"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFStack.Grid"
+        mc:Ignorable="d"
+        Title="StarSizingGrid"
+        Height="300"
+        Width="300">
+
+
+    <WrapPanel Orientation="Vertical">
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Jabberwocky" Background="Coral" Visibility="Collapsed"/>
+            <GridSplitter Background="Red" Grid.Column="1" Width="3" Margin="3,0,3,0"/>
+            <TextBlock Text="OmegaMan"
+                       Background="Coral"
+                       Grid.Column="2"/>
+        </Grid>
+        <Button Height="20" Width="100" Margin="10" Content="DoIT" />
+    </WrapPanel>
+</Window>

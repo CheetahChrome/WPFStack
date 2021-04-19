@@ -1,0 +1,42 @@
+﻿<Window x:Class="WPFStack.ListBoxQuestions"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFStack"
+        xmlns:converters="clr-namespace:WPFStack.Converters"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="ListBoxQuestions" Height="300" Width="300">
+
+
+
+<StackPanel Orientation="Horizontal">
+    <StackPanel.Resources>
+        <!--<converters:PathToFilenameConverter x:Key="FilenameConverter" />-->
+        <x:Array x:Key="FileNames"
+                    Type="system:String">
+            <system:String>C:\Temp\Alpha.txt</system:String>
+            <system:String>C:\Temp\Beta.txt</system:String>
+            <system:String>C:\Temp\Gamma.txt</system:String>
+        </x:Array>
+        </StackPanel.Resources>
+
+
+    <ListBox  Name="lbFiles"
+              SelectionMode="Multiple"
+              ItemsSource="{StaticResource FileNames}"
+              MouseDoubleClick="LbFiles_MouseDoubleClick"
+              Margin="10"/>
+
+
+    <!--<ListBox ItemsSource="{Binding SelectedItems, ElementName=lbFiles }"  Margin="10" />-->
+
+
+    <!--<TextBlock Text="{Binding SelectedItem, 
+               ElementName=lbFiles,
+               Converter={StaticResource FilenameConverter}}"
+               Margin="10" />-->
+
+</StackPanel>
+</Window>

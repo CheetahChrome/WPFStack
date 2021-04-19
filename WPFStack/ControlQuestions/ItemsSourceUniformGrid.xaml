@@ -1,0 +1,44 @@
+﻿<Window x:Class="WPFStack.ControlQuestions.ItemsSourceUniformGrid"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFStack.ControlQuestions"
+        xmlns:model="clr-namespace:WPFStack.Model"
+        mc:Ignorable="d"
+        Title="ItemsSourceUniformGrid" Height="600" Width="300">
+    <Window.Resources>
+        <model:People x:Key="People">
+            <model:Person First="Joe"
+                          Last="Smith"
+                          Phone="303-555-5555" />
+            <model:Person First="Jenny"
+                          Last="Johnson"
+                          Phone="720-867-5309" />
+            <model:Person First="Frank"
+                          Last="Wright"
+                          Phone="202-555-5555" />
+        </model:People>
+
+    </Window.Resources>
+    
+    <ItemsControl x:Name="itemsControl" ItemsSource="{StaticResource People}">
+    
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <UniformGrid  Columns="1" />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding First}" />
+                    <DataGrid ItemsSource="{Binding}" AutoGenerateColumns="True" Width="200"/>
+                    <Button Content="Click Me"
+                            Height="20"
+                            Width="90" />
+                </StackPanel>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</Window>

@@ -1,0 +1,48 @@
+﻿<Window x:Class="WPFStack.ComboQuestions"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ComboQuestions"
+        Height="300"
+        Width="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="94*" />
+            <ColumnDefinition Width="8" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="4" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="4" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="4" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="8" />
+        </Grid.RowDefinitions>
+
+        
+        <Label Grid.Row="1" Grid.Column="1">SelectedItem</Label>
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding SelectedItem, ElementName=cbMain}"/>
+        <Label Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">SelectedValue</Label>
+        <!--<TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding SelectedValue, ElementName=cbMain}"/>
+        <Button Grid.Row="5" Grid.Column="1" Click="ChangeSelectedValue">Set Selected Value</Button>-->
+        <ComboBox Name="cbMain"
+                    Grid.Row="5"
+                    Grid.Column="2"
+                    ItemsSource="{Binding Ships}"
+                    Margin="10,0,10,0"
+                    SelectedItem="{Binding Ships[0]}"
+                    SelectedValuePath="Name"
+                    Text="Select a Ship"/>
+    
+            <ComboBox Grid.Row="7"
+                      Grid.Column="2"
+                      ItemsSource="{Binding VersionNumbers}"
+                      ItemStringFormat="Version: {0}"
+                      Margin="10,0,10,0" /> 
+    </Grid>
+</Window>
