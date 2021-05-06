@@ -67,9 +67,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BindingGroupWindow.xaml.cs">
+    <Compile Include="Bindings\BindingGroupWindow.xaml.cs">
       <DependentUpon>BindingGroupWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Bindings\BindingPage.xaml.cs">
+      <DependentUpon>BindingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Bindings\ConvertToProgress.cs" />
     <Compile Include="Button.xaml.cs">
       <DependentUpon>Button.xaml</DependentUpon>
     </Compile>
@@ -190,7 +194,11 @@
     <Compile Include="Views\MarkupTesting.xaml.cs">
       <DependentUpon>MarkupTesting.xaml</DependentUpon>
     </Compile>
-    <Page Include="BindingGroupWindow.xaml">
+    <Page Include="Bindings\BindingGroupWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Bindings\BindingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
